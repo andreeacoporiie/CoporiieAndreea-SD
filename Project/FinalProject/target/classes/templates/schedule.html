@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+
+    <div class="row" style="margin-top:20px">
+		<div class="col-sm-2">
+		<p></p>
+		</div>
+		<div class="col-sm-2">
+		<h1>Mon</h1>
+		</div>
+		<div class="col-sm-2">
+		<h1>Tue</h1>
+		</div>
+		<div class="col-sm-2">
+		<h1>Wed</h1>
+		</div>
+		<div class="col-sm-2">
+		<h1>Thu</h1>
+		</div>
+		<div class="col-sm-2">
+		<h1>Fri</h1>
+		</div>
+    </div>
+<div th:each="cls : ${classes}">
+	<div class="row" th:if="${cls.is9()} == true" >
+		<div class="col-sm-2" >
+		<h2>9 - 12</h2>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isMonday()} == true"> <p th:text="${cls.toString()}"></p></p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isTuesday()} == true" > <p th:text="${cls.toString()}"></p></p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isWednesday()} == true" ><p th:text="${cls.toString()}"></p></p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isThursday()} == true" ><p th:text="${cls.toString()}"></p> </p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isFriday()} == true" ><p th:text="${cls.toString()}"></p></p>
+		</div>
+	</div>
+	<div class="row" th:if="${cls.is12()} == true">
+		<div class="col-sm-2" >
+		<h2>12 - 15</h2>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isMonday()} == true"> <p th:text="${cls.toString()}"></p></p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isTuesday()} == true" > <p th:text="${cls.toString()}"></p></p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isWednesday()} == true" ><p th:text="${cls.toString()}"></p></p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isThursday()} == true" ><p th:text="${cls.toString()}"></p> </p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isFriday()} == true" ><p th:text="${cls.toString()}"></p></p>
+		</div>
+	</div>
+	<div class="row" th:if="${cls.is15()} == true">
+		<div class="col-sm-2">
+		<h2>15 - 18</h2>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isMonday()} == true"> <p th:text="${cls.toString()}"></p></p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isTuesday()} == true" > <p th:text="${cls.toString()}"></p></p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isWednesday()} == true" ><p th:text="${cls.toString()}"></p></p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isThursday()} == true" ><p th:text="${cls.toString()}"></p> </p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isFriday()} == true" ><p th:text="${cls.toString()}"></p></p>
+		</div>
+	</div>
+	<div class="row" th:if="${cls.is18()} == true">
+		<div class="col-sm-2">
+		<h2>18 - 21</h2>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isMonday()} == true"> <p th:text="${cls.toString()}"></p></p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isTuesday()} == true" > <p th:text="${cls.toString()}"></p></p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isWednesday()} == true" ><p th:text="${cls.toString()}"></p></p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isThursday()} == true" ><p th:text="${cls.toString()}"></p> </p>
+		</div>
+		<div class="col-sm-2" >
+		<p th:if="${cls.isFriday()} == true" ><p th:text="${cls.toString()}"></p></p>
+		</div>
+		
+	</div>
+</div>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

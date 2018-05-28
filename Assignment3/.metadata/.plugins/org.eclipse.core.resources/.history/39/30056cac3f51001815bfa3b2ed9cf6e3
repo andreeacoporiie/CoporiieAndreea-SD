@@ -1,0 +1,95 @@
+package entity;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.List;
+
+import com.google.gson.stream.JsonReader;
+
+import mapper.Mapper;
+
+public class Agency {
+	public List<RegisteredUser> allUsers;
+	public List<Article> allArticles;
+	static String filename = "D:\\Scoala\\An III sem 2\\Assignment3\\";
+	
+	public Agency() throws FileNotFoundException
+	{
+		this.allUsers = getUsers();
+		this.allArticles = getArticles();
+	}
+	
+	private List<RegisteredUser> getUsers() throws FileNotFoundException
+	{
+		JsonReader reader = new JsonReader(new FileReader(filename + "users.json"));
+		return Mapper.usersFromJson(reader);
+	}
+	
+	private List<Article> getArticles() throws FileNotFoundException
+	{
+		JsonReader reader = new JsonReader(new FileReader(filename + "articles.json"));
+		return Mapper.articlesFromJson(reader);
+	}
+	
+	public boolean existsUser(RegisteredUser user)
+	{
+		String username = user.getUsername();
+		for (RegisteredUser u : allUsers)
+		{
+			if (u.getUsername().equals(username))
+				return true;
+		}
+		return false;
+	}
+	
+	public void addUser(RegisteredUser user)
+	{
+		if (!existsUser(user))
+			allUsers.add(user);
+		else 
+			System.out.println("User already exists!");
+	}
+	
+	public boolean existsArticle(Article article)
+	{
+		String title = article.getTitle();
+		for (Article a : allArticles)
+		{
+			if (a.getTitle().equals(title))
+				return true;
+		}
+		return false;
+	}
+	
+	public void addArticle(Article article)
+	{
+		if (!existsArticle(article))
+			allArticles.add(article);
+		else 
+			System.out.println("Article already exists!");
+	}
+	
+	public void deleteArticle(Article article)
+	{
+		if (existsArticle(article))
+			allArticles.remove(article);
+		else
+			System.out.println("Article doesn't exist!");
+	}
+	
+	public void updateArticle(Article article)
+	{
+		
+	}
+	
+	
+	public List<RegisteredUser> getAllUsers()
+	{
+		return allUsers;
+	}
+	public List<Article> getAllArticles()
+	{
+		return allArticles;
+	}
+	
+}

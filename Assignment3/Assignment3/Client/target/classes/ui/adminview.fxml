@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="527.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AdminController">
+   <children>
+      <ListView fx:id="articleList" layoutX="20.0" layoutY="107.0" prefHeight="345.0" prefWidth="484.0" onMouseClicked="#handleMouseClick" />
+      <Button fx:id="loginBTN" layoutX="440.0" layoutY="74.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="63.0" text="Log Out" />
+      <TextField fx:id="userTF" layoutX="357.0" layoutY="10.0" promptText="Username" />
+      <TextField fx:id="passTF" layoutX="357.0" layoutY="42.0" promptText="Password" />
+      <Label fx:id="welcomeLB" layoutX="20.0" layoutY="16.0" text="Welcome!">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label fx:id="dailyLB" layoutX="20.0" layoutY="60.0" text="Your daily news:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="createBTN" layoutX="357.0" layoutY="74.0" mnemonicParsing="false" onAction="#createAcc" prefHeight="25.0" prefWidth="74.0" text="Create Acc" />
+   </children>
+</AnchorPane>

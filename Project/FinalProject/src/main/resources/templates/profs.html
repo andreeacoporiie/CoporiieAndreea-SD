@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+
+    <div class="profs">
+        <h1>List of professors</h1>
+
+        <table style="width:80%">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+				<th>Subject</th>
+            </tr>
+            
+            </thead>
+            <tr th:each="prof : ${professors}">
+                <h2>
+                    <td th:text="${prof.idProfessor}"></td>
+                </h2>
+                <h2>
+                    <td th:text="${prof.username}"></td>
+                </h2>
+                <h2>
+                    <td th:text="${prof.subject}"></td>
+                </h2>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<!-- /.container -->
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+package connection;
+
+import java.net.*;
+import java.util.List;
+
+import com.google.gson.stream.JsonReader;
+
+import entity.Article;
+import entity.RegisteredUser;
+import mapper.Mapper;
+
+import java.io.*;
+ 
+public class Server {
+	
+	public static List<RegisteredUser> allUsers;
+	public static List<Article> allArticles;
+	static String filename = "D:\\Scoala\\An III sem 2\\Assignment3\\";
+	
+	
+	public List<RegisteredUser> getUsers() throws FileNotFoundException
+	{
+		JsonReader reader = new JsonReader(new FileReader(filename + "users.json"));
+		return Mapper.usersFromJson(reader);
+	}
+	
+	public List<Article> getArticles() throws FileNotFoundException
+	{
+		JsonReader reader = new JsonReader(new FileReader(filename + "articles.json"));
+		return Mapper.articlesFromJson(reader);
+	}
+	
+    public static void main(String[] args) throws IOException {
+         
+        int portNumber = 4444;
+        int threads = 0;
+ 
+        try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
+        	System.out.println("Server start");
+             while (true)
+             {
+            	Socket clientSocket = serverSocket.accept();
+            	ServerThread t = new ServerThread(clientSocket, threads++);
+            	t.start();
+             }
+               
+        } catch (IOException e) {
+                System.out.println("Exception caught when trying to listen on port "
+                    + portNumber + " or listening for a connection");
+                System.out.println(e.getMessage());
+        }
+    }
+}

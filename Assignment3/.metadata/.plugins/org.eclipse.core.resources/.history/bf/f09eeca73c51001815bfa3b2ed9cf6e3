@@ -1,0 +1,61 @@
+package entity;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.List;
+
+import com.google.gson.stream.JsonReader;
+
+import mapper.Mapper;
+
+public class Agency {
+	public static List<RegisteredUser> allUsers;
+	public static List<Article> allArticles;
+	static String filename = "D:\\Scoala\\An III sem 2\\Assignment3\\";
+	
+	public Agency() throws FileNotFoundException
+	{
+		this.allUsers = getUsers();
+		this.allArticles = getArticles();
+	}
+	
+	public List<RegisteredUser> getUsers() throws FileNotFoundException
+	{
+		JsonReader reader = new JsonReader(new FileReader(filename + "users.json"));
+		return Mapper.usersFromJson(reader);
+	}
+	
+	public List<Article> getArticles() throws FileNotFoundException
+	{
+		JsonReader reader = new JsonReader(new FileReader(filename + "articles.json"));
+		return Mapper.articlesFromJson(reader);
+	}
+	
+	public boolean existsUser(RegisteredUser user)
+	{
+		String username = user.getUsername();
+		for (RegisteredUser u : allUsers)
+		{
+			if (u.getUsername().equals(username))
+				return true;
+		}
+		return false;
+	}
+	
+	public void addUser(RegisteredUser user)
+	{
+		allUsers.add(user);
+	}
+	
+	public boolean existsArticle(Article article)
+	{
+		String title = article.getTitle();
+		for (Article a : allArticles)
+		{
+			if (a.getTitle().equals(title))
+				return true;
+		}
+		return false;
+	}
+	
+}

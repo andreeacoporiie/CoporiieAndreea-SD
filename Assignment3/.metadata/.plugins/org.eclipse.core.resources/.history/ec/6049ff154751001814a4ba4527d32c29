@@ -1,0 +1,29 @@
+package ui;
+
+import java.io.FileNotFoundException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
+import entity.Agency;
+
+public class Client {
+	private ObjectOutputStream out ;
+	private ObjectInputStream in ;
+	Socket clientSocket;
+	private static Client instance;
+	
+	public Client(){
+		clientSocket = new Socket("localhost", 4444);
+		out = new ObjectOutputStream(clientSocket.getOutputStream());
+		in = new ObjectInputStream(clientSocket.getInputStream());
+	}
+	
+	
+	public static Client getInstance(){
+		if(instance==null){
+			instance = new Client();
+		}
+		return instance;
+	}
+}

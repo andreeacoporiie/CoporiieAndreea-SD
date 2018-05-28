@@ -1,0 +1,9 @@
+package mapper;
+
+import com.google.gson.Gson;
+
+public class Mapper {
+	
+	Gson g = new Gson();
+
+}

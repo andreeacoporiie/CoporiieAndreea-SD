@@ -1,0 +1,26 @@
+[
+{'title': 'A1',
+ 'author': 'Andreea', 
+'abs': 'not yet', 
+'body' : 'pls no'
+},
+{
+'title': 'A2', 
+'author': '123', 
+'abs': 'notp', 
+'body' : 'no'
+},
+{
+'title': 'A3', 
+'author': 'test', 
+'abs': 'this is the longest abstract ever', 
+'body' : 'unavailable',
+'relatedArticles' : 
+[{'title': 'A1',
+ 'author': 'Andreea', 
+'abs': 'not yet', 
+'body' : 'pls no'
+}]
+
+}
+]

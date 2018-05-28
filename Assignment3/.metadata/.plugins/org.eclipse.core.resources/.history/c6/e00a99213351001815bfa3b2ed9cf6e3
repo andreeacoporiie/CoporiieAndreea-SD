@@ -1,0 +1,18 @@
+package mapper;
+
+import com.google.gson.Gson;
+
+import entity.RegisteredUser;
+
+public class UserMapper {
+	
+	private static Gson g = new Gson();
+	
+	public static String toJSON(RegisteredUser user){
+		return g.toJson(user);
+		
+	}
+	public static RegisteredUser fromJSON(String user){
+		return g.fromJson(user, RegisteredUser.class);
+	}
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1 th:inline="text">[[${#httpServletRequest.remoteUser}]]'s page (Professor)</h1>
+        
+		<br></br>
+        <form >
+            <input style="width:20%" type="submit" class="btn btn-md btn-primary disabled" value="View My Schedule"/>
+        </form>
+        <br></br>
+        <form th:action="@{/profs}">
+            <input style="width:20%" type="submit" class="btn btn-md btn-primary " value="View My Peers"/>
+        </form>
+        <br></br>
+		 <form th:action="@{/stud}">
+            <input style="width:20%" type="submit" class="btn btn-md btn-primary " value="View Students"/>
+        </form>
+        <br></br>
+        <form th:action="@{/logout}" method="post">
+            <input style="width:20%" type="submit" class="btn btn-md " value="Log Out"/>
+        </form>
+</div>
+</div>
+<!-- /.container -->
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

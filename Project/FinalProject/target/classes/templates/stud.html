@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+
+    <div class="students">
+        <h1>List of students</h1>
+
+        <table style="width:80%">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>user</th>
+				<th>Group</th>
+            </tr>
+            
+            </thead>
+            <tr th:each="stud : ${students}">
+                <h2>
+                    <td th:text="${stud.idStudent}"></td>
+                </h2>
+                <h2>
+                    <td th:text="${stud.username}"></td>
+                </h2>
+                <h2>
+                    <td th:text="${stud.group.idGroup}"></td>
+                </h2>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<!-- /.container -->
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

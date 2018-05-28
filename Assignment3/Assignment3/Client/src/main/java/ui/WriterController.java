@@ -1,0 +1,139 @@
+package ui;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
+
+import entity.Article;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import mapper.Mapper;
+
+public class WriterController implements Initializable, Observer {
+
+    @FXML
+    private AnchorPane anchor;
+
+    @FXML
+    private ListView<Article> articleList;
+
+    @FXML
+    private Button logoutBTN;
+
+    @FXML
+    private Label welcomeLB;
+
+    @FXML
+    private Label dailyLB;
+
+    @FXML
+    private Button updateBTN;
+
+    @FXML
+    private Button createBTN;
+
+    @FXML
+    private Button deleteBTN;
+
+    Main main = new Main();
+    Client client = Client.getInstance();
+    
+    @Override
+	public void initialize(URL location, ResourceBundle resources) {
+		try {
+			client.getOut().writeObject("getarticles");
+			client.getOut().flush();
+			System.out.println("Send request getarticle");
+			
+			String jsonArticleList = (String) client.getIn().readObject();
+			List<Article> articles = Mapper.articlesFromJson(jsonArticleList);
+			ObservableList<Article> oList= FXCollections.observableArrayList(articles);
+			
+			articleList.setItems(oList);
+			articleList.setEditable(false);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+    
+    @FXML 
+    void handleMouseClick(MouseEvent arg0) throws IOException {
+    	if (arg0.getButton() == MouseButton.PRIMARY)
+    	{
+    	client.setArticle(articleList.getSelectionModel().getSelectedItem());
+    	main.changeScene("articleview.fxml");
+        System.out.println("clicked on " + articleList.getSelectionModel().getSelectedItem().titleToString());
+    	}
+    }
+
+
+    @FXML
+    void deleteArticle(ActionEvent event) throws IOException, ClassNotFoundException {
+    	Article art = articleList.getSelectionModel().getSelectedItem();
+    	String jsonArticle = Mapper.articleToJson(art);
+    	
+    	Alerts.display("info", "title", jsonArticle);
+    	
+    	client.getOut().writeObject("delete" + " " + jsonArticle);
+		client.getOut().flush();
+		System.out.println("Send request delete");
+		
+		String answer = (String) client.getIn().readObject();
+		if (answer.equals("deleted"))
+			Alerts.display("info", "Article deletion", "An article has been deleted.");
+		else
+			Alerts.display("error", "Error", "Please select an article");
+    }
+
+    @FXML
+    void logout(ActionEvent event) throws IOException {
+    	main.changeScene("generalview.fxml");
+    }
+    
+    
+    @FXML
+    void createArticle(ActionEvent event) throws IOException {
+    	client.getOut().writeObject("create");
+    	client.getOut().flush();
+    	client.setArticle(new Article("Title","Author","Abstract", "Body",null));
+    	main.changeScene("editablearticle.fxml");
+    }
+
+    @FXML
+    void updateArticle(ActionEvent event) throws IOException {
+    	client.getOut().writeObject("update");
+    	client.getOut().flush();
+    	client.setArticle(articleList.getSelectionModel().getSelectedItem());
+    	main.changeScene("editablearticle.fxml");
+    }
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
+	}
+	@FXML
+	public void exitApplication(ActionEvent event) {
+	   Platform.exit();
+	}
+}

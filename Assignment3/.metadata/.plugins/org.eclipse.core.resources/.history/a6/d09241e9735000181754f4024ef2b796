@@ -1,0 +1,13 @@
+package entity;
+
+import java.awt.List;
+
+public class Article {
+
+	String title;
+	String author;
+	String abs;     // article abstract
+	String body;
+	List<Article> relatedArticles;
+	
+}

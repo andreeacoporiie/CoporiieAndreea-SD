@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1 th:inline="text">[[${#httpServletRequest.remoteUser}]]'s page (Admin)</h1>
+        
+        <a th:href="@{/class}"> Strategy pattern works </a>
+
+        <form th:action="@{/logout}" method="post">
+            <input style="width:20%" type="submit" class="btn btn-md " value="Log Out"/>
+        </form>
+
+    </div>
+
+</div>
+<!-- /.container -->
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+package connection;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.List;
+
+import entity.Article;
+import entity.RegisteredUser;
+import mapper.Mapper;
+import persist.Agency;
+
+public class ServerThread extends Thread{
+
+	private int id;
+	private Socket socket = null;
+	
+	public ServerThread(Socket socket,int id) { this.socket = socket; this.id = id;}
+	@Override
+	public void run() {
+		try (
+				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+				ObjectInputStream in  = new ObjectInputStream(socket.getInputStream());
+		){
+			System.out.println(id + " connected");
+			while(true)
+			{
+				String received = (String) in.readObject();
+				String[] input = received.split(" ");
+//				Command command = CommandFactory.getCommand(args);
+//				if (command != null) {
+//					outStream.writeObject(command.execute());
+//				} else {
+//					outStream.writeObject(null);
+//				}
+				int nrArgs = input.length;
+				Agency a = Agency.getInstance();
+				
+				switch (input[0]){
+				case "getarticles":
+						List<Article> list = a.getAllArticles();
+						String jsonArticleList = Mapper.articlesToJson(list);
+						out.writeObject(jsonArticleList);
+						break;
+				case "login":
+						String jsonUser = input[1];
+						RegisteredUser ru = Mapper.userFromJson(jsonUser);
+						if (a.existsUser(ru))
+						{
+							if (ru.isAdmin())
+								out.writeObject("admin");
+							else
+								out.writeObject("writer");
+						}
+						else
+							out.writeObject("error"); 
+						break;
+				}
+
+			}
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				socket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(id + " disconnected");
+		}
+             
+		
+	}
+
+}

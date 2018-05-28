@@ -1,0 +1,45 @@
+package ui;
+
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class Client {
+	private ObjectOutputStream out ;
+	private ObjectInputStream in ;
+	Socket clientSocket;
+	private static Client instance;
+	
+	public Client() throws UnknownHostException, IOException{
+		clientSocket = new Socket("localhost", 4447);
+		out = new ObjectOutputStream(clientSocket.getOutputStream());
+		in = new ObjectInputStream(clientSocket.getInputStream());
+	}
+	
+	
+	public static Client getInstance() {
+		if(instance==null){
+			try {
+				instance = new Client();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return instance;
+	}
+
+
+	public ObjectOutputStream getOut() {
+		return out;
+	}
+
+
+	public ObjectInputStream getIn() {
+		return in;
+	}
+	
+	
+}

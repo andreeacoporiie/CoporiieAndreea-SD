@@ -1,0 +1,20 @@
+package mapper;
+
+import com.google.gson.Gson;
+
+import entity.Article;
+
+public class Mapper {
+	
+	private static Gson g = new Gson();
+
+	public static String toJSON(Article article){
+		return null;
+		
+	}
+	
+	public static Article fromJSON(String article){
+		return null;
+	}
+	
+}

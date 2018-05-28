@@ -1,0 +1,29 @@
+package connection;
+
+import java.net.*;
+import java.io.*;
+ 
+public class ServerTest {
+    public static void main(String[] args) throws IOException {
+         
+        int portNumber = 4444;
+         
+        try ( 
+                ServerSocket serverSocket = new ServerSocket(portNumber);
+                
+               
+            ) {
+             while (true)
+             {
+            	 Socket clientSocket = serverSocket.accept();
+            	
+                
+             }
+               
+            } catch (IOException e) {
+                System.out.println("Exception caught when trying to listen on port "
+                    + portNumber + " or listening for a connection");
+                System.out.println(e.getMessage());
+            }
+    }
+}

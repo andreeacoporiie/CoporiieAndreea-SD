@@ -1,0 +1,68 @@
+package ui;
+
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+import entity.Article;
+
+public class Client {
+	private ObjectOutputStream out ;
+	private ObjectInputStream in ;
+	Socket clientSocket;
+	private static Client instance;
+	private Article article;
+	private int adminUser = 2; //0 no; 1 yes; 2 neither
+	
+	public Client() throws UnknownHostException, IOException{
+		clientSocket = new Socket("localhost", 4201);
+		out = new ObjectOutputStream(clientSocket.getOutputStream());
+		in = new ObjectInputStream(clientSocket.getInputStream());
+	}
+	
+	
+	public static Client getInstance() {
+		if(instance==null){
+			try {
+				instance = new Client();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return instance;
+	}
+
+
+	public ObjectOutputStream getOut() {
+		return out;
+	}
+
+
+	public ObjectInputStream getIn() {
+		return in;
+	}
+
+
+	public Article getArticle() {
+		return article;
+	}
+
+
+	public void setArticle(Article article) {
+		this.article = article;
+	}
+
+
+	public int getAdminUser() {
+		return adminUser;
+	}
+
+
+	public void setAdminUser(int adminUser) {
+		this.adminUser = adminUser;
+	}
+
+}

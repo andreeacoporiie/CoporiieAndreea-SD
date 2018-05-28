@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+
+    <div class="cls">
+        <h1>List of classes</h1>
+
+        <table style="width:100%">
+            <thead>
+            <tr>
+                <th>Time</th>
+                <th>Day</th>
+                <th>Group</th>
+                <th>Prof</th>
+                <th>Room</th>
+            </tr>
+            
+            </thead>
+            <tr th:each="cls : ${classes}">
+                <h2>
+                    <td th:text="${cls.time}"></td>
+                </h2>
+                <h2>
+                    <td th:text="${cls.day}"></td>
+                </h2>
+                <h2>
+                    <td th:text="${cls.group.idGroup}"></td>
+                </h2>
+                <h2>
+                    <td th:text="${cls.prof.username}"></td>
+                </h2>
+                <h2>
+                    <td th:text="${cls.room.name}"></td>
+                </h2>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<!-- /.container -->
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

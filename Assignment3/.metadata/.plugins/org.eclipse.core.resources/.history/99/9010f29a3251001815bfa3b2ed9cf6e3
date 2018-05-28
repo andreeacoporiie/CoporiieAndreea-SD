@@ -1,0 +1,37 @@
+package mapper;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import entity.Article;
+import entity.RegisteredUser;
+
+public class ArticleMapper {
+	
+	private static Gson g = new Gson();
+
+	public static String articleToJson(Article article){
+		return g.toJson(article);
+	}
+	
+	public static Article articleFromJson(String article){
+		return g.fromJson(article, Article.class);
+	}
+	
+	public static List<Article> articlesFromJson(String articles){  // cannot overload with same type parameters
+		Type type = new TypeToken<List<Article>>(){}.getType();
+		return g.fromJson(articles, type);
+	}
+	
+	public static String userToJson(RegisteredUser user){
+		return g.toJson(user);
+		
+	}
+	public static RegisteredUser userFromJson(String user){
+		return g.fromJson(user, RegisteredUser.class);
+	}
+	
+}

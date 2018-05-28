@@ -1,0 +1,29 @@
+package mapper;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import entity.Article;
+
+public class ArticleMapper {
+	
+	private static Gson g = new Gson();
+
+	public static String toJson(Article article){
+		return g.toJson(article);
+	}
+	
+	public static Article fromJson(String article){
+		return g.fromJson(article, Article.class);
+	}
+	
+	public static List<Article> fromJSON(String articles, Type type){
+		type = new TypeToken<List<Article>>(){}.getType();
+		return g.fromJson(articles, type);
+		
+	}
+	
+}
